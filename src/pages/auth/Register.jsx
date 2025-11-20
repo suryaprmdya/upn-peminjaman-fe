@@ -58,7 +58,7 @@ export default function App() {
 
     try {
       const {data} = await axios.post(
-        "http://localhost:3000/auth/register",
+        "https://upn-peminjaman-be.vercel.app/auth/register",
         userData
       );
 
