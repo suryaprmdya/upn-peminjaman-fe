@@ -61,35 +61,57 @@ const FacilitiesPage = () => {
     setModalOpen(false);
   };
 
-  // --- 2. CREATE & UPDATE ---
-  // Helper untuk ambil id fasilitas (MongoDB)
-  // const getFacilityId = (facility) => facility?._id;
-
-  const handleSaveFacility = async (facilityData) => {
+  // --- 2. CREATE ---
+  const handleCreateFacility = async (facilityData) => {
     try {
       const config = {
         withCredentials: true,
       };
 
-      if (currentFacility) {
-        // UPDATE
-        await axios.put(`${API_URL}/${facilityData._id}`, facilityData, config);
-        toast.success("Fasilitas berhasil diupdate!");
-      } else {
-        // CREATE
-        const {_id, ...dataToSend} = facilityData;
-        await axios.post(API_URL, dataToSend, config);
-        toast.success("Fasilitas berhasil ditambahkan!");
-      }
-      
-      console.log(facilityData);
+      // Hapus _id dari data sebelum create
+      const {_id, ...dataToSend} = facilityData;
+      await axios.post(API_URL, dataToSend, config);
+      toast.success("Fasilitas berhasil ditambahkan!");
+
       await fetchFacilities();
       handleCloseModal();
     } catch (err) {
       const errorMessage =
-        err.response?.data?.message || err.message || "Gagal menyimpan data";
+        err.response?.data?.message || err.message || "Gagal menambahkan data";
       toast.error(`Gagal: ${errorMessage}`);
-      console.error("Error saving data:", err);
+      console.error("Error creating data:", err);
+    }
+  };
+
+  // --- 3. UPDATE ---
+  const handleUpdateFacility = async (facilityData) => {
+    try {
+      const config = {
+        withCredentials: true,
+      };
+
+      const id = facilityData._id;
+      // Hapus _id dari data sebelum update
+      const {_id, ...dataToSend} = facilityData;
+      await axios.put(`${API_URL}/${id}`, dataToSend, config);
+      toast.success("Fasilitas berhasil diupdate!");
+
+      await fetchFacilities();
+      handleCloseModal();
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || err.message || "Gagal mengupdate data";
+      toast.error(`Gagal: ${errorMessage}`);
+      console.error("Error updating data:", err);
+    }
+  };
+
+  // Handler untuk save (kombinasi create dan update)
+  const handleSaveFacility = async (facilityData) => {
+    if (currentFacility) {
+      await handleUpdateFacility(facilityData);
+    } else {
+      await handleCreateFacility(facilityData);
     }
   };
 
@@ -103,7 +125,7 @@ const FacilitiesPage = () => {
     setConfirmModalOpen(false);
   };
 
-  // --- 3. DELETE ---
+  // --- 4. DELETE ---
   const handleConfirmDelete = async () => {
     if (facilityToDelete) {
       try {
