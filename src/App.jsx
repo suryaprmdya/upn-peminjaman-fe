@@ -9,6 +9,9 @@ import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import FacilitiesPage from "./pages/admin/FacilitiesPage";
 import AdminRoute from "./routes/AdminRoute";
 import AdminLayout from "./layouts/AdminLayout";
+import UserRoute from "./routes/UserRoute";
+import UserLayout from "./layouts/UserLayout";
+import LoanRequestPage from "./pages/LoanRequestPage";
 
 function App() {
   return (
@@ -26,9 +29,16 @@ function App() {
             </Route>
           </Route>
 
-          {/* <Route path="/admin/dashboard" element={<DashboardAdmin />} />
-          <Route path="/admin/facilities" element={<FacilitiesPage />} /> */}
-          <Route path="/user/dashboard" element={<DashboardUser />} />
+          {/* ROUTE USER */}
+          <Route element={<UserRoute />}>
+            <Route path="user" element={<UserLayout />}>
+              <Route path="dashboard" element={<DashboardUser />} />
+              <Route path="riwayat" element={<DashboardUser />} />
+              <Route path="pengajuan" element={<LoanRequestPage />} />
+              {/* <Route path="pengajuan" element={<Form />} /> */}
+            </Route>
+          </Route>
+
           <Route path="/form" element={<Form />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Register />} />

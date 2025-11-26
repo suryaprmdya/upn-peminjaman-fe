@@ -54,6 +54,7 @@ const FacilitiesPage = () => {
   const handleOpenModal = (facility) => {
     setCurrentFacility(facility);
     setModalOpen(true);
+    console.log(currentFacility);
   };
 
   const handleCloseModal = () => {
@@ -109,7 +110,9 @@ const FacilitiesPage = () => {
   // Handler untuk save (kombinasi create dan update)
   const handleSaveFacility = async (facilityData) => {
     if (currentFacility) {
-      await handleUpdateFacility(facilityData);
+      const dataWithId = { ...facilityData, _id: currentFacility._id };
+      await handleUpdateFacility(dataWithId);
+      console.log("SEND UPDATE:", dataWithId);
     } else {
       await handleCreateFacility(facilityData);
     }
@@ -216,7 +219,7 @@ const FacilitiesPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {facilities.map((item) => (
                 <div
-                  key={item.id || item._id}
+                  key={item._id}
                   className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col overflow-hidden">
                   {/* Image Section */}
                   <div className="relative h-48 w-full overflow-hidden bg-gray-200">

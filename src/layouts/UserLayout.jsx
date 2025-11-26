@@ -7,7 +7,7 @@ import DropdownUser from "../components/Dashboard/DropdownUser";
 import axios from "axios";
 import {Outlet, useNavigate} from "react-router-dom";
 
-export default function AdminLayout() {
+export default function UserLayout() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [UserData, setUserData] = useState(null);
@@ -39,7 +39,7 @@ export default function AdminLayout() {
         setUserData(data.user);
       } catch (error) {
         console.error("Token invalid, redirecting...");
-        navigate("/auth/login");
+        navigate("/login");
       }
     };
 

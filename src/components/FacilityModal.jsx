@@ -95,7 +95,7 @@ const FacilityModal = ({isOpen, onClose, onSave, facility}) => {
         ...formData,
         imageURL: finalImageURL, // URL pendek dari Cloudinary
         capacity: formData.capacity ? Number(formData.capacity) : 0,
-        id: facility ? facility.id : undefined,
+        // id: facility ? facility.id : undefined,
       };
 
       // 3. Simpan ke backend lokal via onSave parent
@@ -195,7 +195,7 @@ const FacilityModal = ({isOpen, onClose, onSave, facility}) => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 block w-full p-2.5">
                   <option value="Tersedia">Tersedia</option>
                   <option value="Dipinjam">Dipinjam</option>
-                  <option value="Perbaikan">Perbaikan</option>
+                  {/* <option value="Perbaikan">Perbaikan</option> */}
                 </select>
               </div>
 

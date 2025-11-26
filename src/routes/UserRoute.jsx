@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Navigate, Outlet} from "react-router-dom";
 import axios from "axios";
 
-export default function AdminRoute() {
+export default function UserRoute() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -35,11 +35,6 @@ export default function AdminRoute() {
   // Jika tidak login
   if (!user) {
     return <Navigate to="/auth/login" replace />;
-  }
-
-  // Jika bukan admin
-  if (user.role !== "admin") {
-    return <Navigate to="/user/dashboard" replace />;
   }
 
   // Jika admin -> izinkan akses
